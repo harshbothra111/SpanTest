@@ -30,9 +30,18 @@ namespace SpanTest
         }
 
         [Benchmark]
+        public void ParallelForEach()
+        {
+            Parallel.ForEach(_items, number =>
+            {
+                int result = number * 2;
+            });
+        }
+
+        [Benchmark]
         public void Span()
         {
-            var spans = CollectionsMarshal.AsSpan(_items);
+            Span<int> spans = CollectionsMarshal.AsSpan(_items);
             for (int i=0; i < spans.Length; i++)
             {
                 spans[i] = spans[i] * 2;
